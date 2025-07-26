@@ -2,23 +2,16 @@ let movieNameRef = document.getElementById("movie-name");
 let searchBtn = document.getElementById("search-btn");
 let result = document.getElementById("result");
 
-// Add your OMDB API Key here or use environment variable
-const key = "ac6311d7"; // Replace with process.env.NEXT_PUBLIC_API_KEY if using React/Next.js
-
-// Function to fetch data from API
+const key = "ac6311d7"; 
 let getMovie = () => {
     let movieName = movieNameRef.value.trim();
 
-    // If input field is empty
     if (movieName.length === 0) {
         result.innerHTML = `<h3 class="msg">Please enter a movie name</h3>`;
         return;
     }
+    let url = `https://www.omdbapi.com/?t=${encodeURIComponent(movieName)}&apikey=${key}`;
 
-    // Construct API URL (use HTTPS and encode query)
-    let url = ` http://www.omdbapi.com/?t=${movieName}&apikey=${key}`;
-
-    // Fetch API
     fetch(url)
         .then((resp) => resp.json())
         .then((data) => {
